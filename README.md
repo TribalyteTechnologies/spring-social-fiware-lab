@@ -27,11 +27,11 @@ Then provide a link to "/auth/fiwarelab", for example:
 ```
 
 
-## TODO
+##TODO
 - Package this project as a Maven artifact.
 
 
-# License
+##License
 The MIT License (http://www.opensource.org/licenses/mit-license.html)
 
 Copyright (c) 2015 Tribalyte Technologies S.L. (http://www.tribalyte.com/)
