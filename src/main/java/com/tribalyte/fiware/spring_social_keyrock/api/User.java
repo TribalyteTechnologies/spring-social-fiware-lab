@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package org.springframework.social.fiwarelab.api;
+package com.tribalyte.fiware.spring_social_keyrock.api;
 
 import java.io.Serializable;
 import java.util.List;

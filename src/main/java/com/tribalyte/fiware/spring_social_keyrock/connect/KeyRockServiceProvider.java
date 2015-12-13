@@ -21,12 +21,13 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package org.springframework.social.fiwarelab.connect;
+package com.tribalyte.fiware.spring_social_keyrock.connect;
 
-import org.springframework.social.fiwarelab.api.KeyRock;
-import org.springframework.social.fiwarelab.api.impl.KeyRockTemplate;
 import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
 import org.springframework.social.oauth2.OAuth2Template;
+
+import com.tribalyte.fiware.spring_social_keyrock.api.KeyRock;
+import com.tribalyte.fiware.spring_social_keyrock.api.impl.KeyRockTemplate;
 
 /**
  * Implementation of Identity Manager GE / KeyRock service provider

@@ -21,44 +21,30 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package org.springframework.social.fiwarelab.api.impl;
+package com.tribalyte.fiware.spring_social_keyrock.api.impl;
 
-import org.springframework.social.fiwarelab.api.KeyRock;
-import org.springframework.social.fiwarelab.api.UserOperations;
-import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
-import org.springframework.social.oauth2.TokenStrategy;
 import org.springframework.web.client.RestTemplate;
 
+import com.tribalyte.fiware.spring_social_keyrock.api.User;
+import com.tribalyte.fiware.spring_social_keyrock.api.UserOperations;
+
 /**
- * This is the central class for interacting with KeyStone.
+ * Implementation of KeyRock UserOperations 
  * 
  * @author rbarriuso
  */
-public class KeyRockTemplate extends AbstractOAuth2ApiBinding implements KeyRock {
+public class UserOperationsTemplate implements UserOperations{
 	
-	public static final String API_BASE_URL = "https://account.lab.fiware.org";
+	private final RestTemplate restTemplate;
 	
-	private UserOperations userOperations = null;
-	
-	public KeyRockTemplate(String accessToken){
-		//Use ACCESS_TOKEN_PARAMETER token strategy to send the access token as a query parameter
-		super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
-		initialize();
+	public UserOperationsTemplate(RestTemplate template){
+		restTemplate = template;
 	}
-	
+
 	@Override
-	public UserOperations userOperations() {
-		return userOperations;
+	public User getUserProfile() {
+		return restTemplate.getForObject(KeyRockTemplate.API_BASE_URL + "/user", User.class);
 	}
 	
-	@Override
-	protected void configureRestTemplate(RestTemplate restTemplate) {
-		//TODO: implement restTemplate.setErrorHandler?
-		super.configureRestTemplate(restTemplate);
-	}
-	
-	private void initialize() {
-		userOperations = new UserOperationsTemplate(getRestTemplate());
-	}
 
 }

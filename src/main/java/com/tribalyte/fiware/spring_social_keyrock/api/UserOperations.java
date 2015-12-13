@@ -21,20 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package org.springframework.social.fiwarelab.connect;
+package com.tribalyte.fiware.spring_social_keyrock.api;
 
-import org.springframework.social.connect.support.OAuth2ConnectionFactory;
-import org.springframework.social.fiwarelab.api.KeyRock;
 
-/**
- * KeyRock ConnectionFactory implementation.
+/** 
+ * Operations on the user's profile.
  * 
  * @author rbarriuso
  */
-public class KeyRockConnectionFactory extends OAuth2ConnectionFactory<KeyRock> {
+public interface UserOperations {
 
-	public KeyRockConnectionFactory(String appId, String appSecret) {
-		super("fiwarelab", new KeyRockServiceProvider(appId, appSecret), new KeyRockAdapter());
-	}
+	/**
+	 * Retrieves the profile for the authenticated user.
+	 * @return the user's profile information.
+	 */
+	User getUserProfile();
 
 }

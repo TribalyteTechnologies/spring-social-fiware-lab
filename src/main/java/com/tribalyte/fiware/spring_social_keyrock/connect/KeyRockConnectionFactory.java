@@ -21,29 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package org.springframework.social.fiwarelab.api.impl;
+package com.tribalyte.fiware.spring_social_keyrock.connect;
 
-import org.springframework.social.fiwarelab.api.User;
-import org.springframework.social.fiwarelab.api.UserOperations;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.social.connect.support.OAuth2ConnectionFactory;
+
+import com.tribalyte.fiware.spring_social_keyrock.api.KeyRock;
 
 /**
- * Implementation of KeyRock UserOperations 
+ * KeyRock ConnectionFactory implementation.
  * 
  * @author rbarriuso
  */
-public class UserOperationsTemplate implements UserOperations{
-	
-	private final RestTemplate restTemplate;
-	
-	public UserOperationsTemplate(RestTemplate template){
-		restTemplate = template;
-	}
+public class KeyRockConnectionFactory extends OAuth2ConnectionFactory<KeyRock> {
 
-	@Override
-	public User getUserProfile() {
-		return restTemplate.getForObject(KeyRockTemplate.API_BASE_URL + "/user", User.class);
+	public KeyRockConnectionFactory(String appId, String appSecret) {
+		super("fiwarelab", new KeyRockServiceProvider(appId, appSecret), new KeyRockAdapter());
 	}
-	
 
 }
