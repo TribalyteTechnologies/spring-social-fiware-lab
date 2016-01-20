@@ -21,12 +21,12 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.api.impl;
+package com.tribalyte.springsocial.fiwarelab.api.impl;
 
 import org.springframework.web.client.RestTemplate;
 
-import com.tribalyte.fiware.spring_social_keyrock.api.User;
-import com.tribalyte.fiware.spring_social_keyrock.api.UserOperations;
+import com.tribalyte.springsocial.fiwarelab.api.User;
+import com.tribalyte.springsocial.fiwarelab.api.UserOperations;
 
 /**
  * Implementation of KeyRock UserOperations 

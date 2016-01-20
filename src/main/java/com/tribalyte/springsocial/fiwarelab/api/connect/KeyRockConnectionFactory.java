@@ -21,45 +21,21 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.api.impl;
+package com.tribalyte.springsocial.fiwarelab.api.connect;
 
-import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
-import org.springframework.social.oauth2.TokenStrategy;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 
-import com.tribalyte.fiware.spring_social_keyrock.api.KeyRock;
-import com.tribalyte.fiware.spring_social_keyrock.api.UserOperations;
+import com.tribalyte.springsocial.fiwarelab.api.KeyRock;
 
 /**
- * This is the central class for interacting with KeyStone.
+ * KeyRock ConnectionFactory implementation.
  * 
  * @author rbarriuso
  */
-public class KeyRockTemplate extends AbstractOAuth2ApiBinding implements KeyRock {
-	
-	public static final String API_BASE_URL = "https://account.lab.fiware.org";
-	
-	private UserOperations userOperations = null;
-	
-	public KeyRockTemplate(String accessToken){
-		//Use ACCESS_TOKEN_PARAMETER token strategy to send the access token as a query parameter
-		super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
-		initialize();
-	}
-	
-	@Override
-	public UserOperations userOperations() {
-		return userOperations;
-	}
-	
-	@Override
-	protected void configureRestTemplate(RestTemplate restTemplate) {
-		//TODO: implement restTemplate.setErrorHandler?
-		super.configureRestTemplate(restTemplate);
-	}
-	
-	private void initialize() {
-		userOperations = new UserOperationsTemplate(getRestTemplate());
+public class KeyRockConnectionFactory extends OAuth2ConnectionFactory<KeyRock> {
+
+	public KeyRockConnectionFactory(String appId, String appSecret) {
+		super("fiwarelab", new KeyRockServiceProvider(appId, appSecret), new KeyRockAdapter());
 	}
 
 }

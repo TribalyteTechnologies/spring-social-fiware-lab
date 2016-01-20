@@ -21,35 +21,45 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.connect;
+package com.tribalyte.springsocial.fiwarelab.api.impl;
 
-import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
-import org.springframework.social.oauth2.OAuth2Template;
+import org.springframework.social.oauth2.AbstractOAuth2ApiBinding;
+import org.springframework.social.oauth2.TokenStrategy;
+import org.springframework.web.client.RestTemplate;
 
-import com.tribalyte.fiware.spring_social_keyrock.api.KeyRock;
-import com.tribalyte.fiware.spring_social_keyrock.api.impl.KeyRockTemplate;
+import com.tribalyte.springsocial.fiwarelab.api.KeyRock;
+import com.tribalyte.springsocial.fiwarelab.api.UserOperations;
 
 /**
- * Implementation of Identity Manager GE / KeyRock service provider
+ * This is the central class for interacting with KeyStone.
  * 
  * @author rbarriuso
  */
-public class KeyRockServiceProvider extends AbstractOAuth2ServiceProvider<KeyRock> {
-
-	public KeyRockServiceProvider(String appId, String appSecret) {
-		super(getOAuth2Template(appId, appSecret));
+public class KeyRockTemplate extends AbstractOAuth2ApiBinding implements KeyRock {
+	
+	public static final String API_BASE_URL = "https://account.lab.fiware.org";
+	
+	private UserOperations userOperations = null;
+	
+	public KeyRockTemplate(String accessToken){
+		//Use ACCESS_TOKEN_PARAMETER token strategy to send the access token as a query parameter
+		super(accessToken, TokenStrategy.ACCESS_TOKEN_PARAMETER);
+		initialize();
 	}
 	
-	private static OAuth2Template getOAuth2Template(String appId, String appSecret) {
-		OAuth2Template oAuth2Template = new OAuth2Template(appId, appSecret,
-				KeyRockTemplate.API_BASE_URL + "/oauth2/authorize",
-				KeyRockTemplate.API_BASE_URL + "/oauth2/token");
-		//False to send clientId and clientSecret in "Authentication" header rather than POST body when exchanging the code
-		oAuth2Template.setUseParametersForClientAuthentication(false);
-		return oAuth2Template;
+	@Override
+	public UserOperations userOperations() {
+		return userOperations;
+	}
+	
+	@Override
+	protected void configureRestTemplate(RestTemplate restTemplate) {
+		//TODO: implement restTemplate.setErrorHandler?
+		super.configureRestTemplate(restTemplate);
+	}
+	
+	private void initialize() {
+		userOperations = new UserOperationsTemplate(getRestTemplate());
 	}
 
-	public KeyRock getApi(String accessToken) {
-		return new KeyRockTemplate(accessToken);
-	}
 }

@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.connect;
+package com.tribalyte.springsocial.fiwarelab.api.connect;
 
 import org.springframework.social.ApiException;
 import org.springframework.social.connect.ApiAdapter;
@@ -29,8 +29,8 @@ import org.springframework.social.connect.ConnectionValues;
 import org.springframework.social.connect.UserProfile;
 import org.springframework.social.connect.UserProfileBuilder;
 
-import com.tribalyte.fiware.spring_social_keyrock.api.KeyRock;
-import com.tribalyte.fiware.spring_social_keyrock.api.User;
+import com.tribalyte.springsocial.fiwarelab.api.KeyRock;
+import com.tribalyte.springsocial.fiwarelab.api.User;
 
 /**
  * KeyRock ApiAdapter implementation.

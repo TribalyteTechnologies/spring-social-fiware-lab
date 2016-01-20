@@ -21,21 +21,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.connect;
+package com.tribalyte.springsocial.fiwarelab.api;
 
-import org.springframework.social.connect.support.OAuth2ConnectionFactory;
+import org.springframework.social.ApiBinding;
 
-import com.tribalyte.fiware.spring_social_keyrock.api.KeyRock;
-
-/**
- * KeyRock ConnectionFactory implementation.
+/** 
+ * Interface specifying the set of operations for interacting with the FIWARE Identity Manager GE (KeyRock).
+ * Implemented by {@link KeyRockTemplate}.
  * 
  * @author rbarriuso
  */
-public class KeyRockConnectionFactory extends OAuth2ConnectionFactory<KeyRock> {
-
-	public KeyRockConnectionFactory(String appId, String appSecret) {
-		super("fiwarelab", new KeyRockServiceProvider(appId, appSecret), new KeyRockAdapter());
-	}
+public interface KeyRock extends ApiBinding {
+	
+	/**
+	 * API for performing operations on IdM-KeyRock user profiles.
+	 * @return {@link UserOperations}
+	 */
+	UserOperations userOperations();
 
 }

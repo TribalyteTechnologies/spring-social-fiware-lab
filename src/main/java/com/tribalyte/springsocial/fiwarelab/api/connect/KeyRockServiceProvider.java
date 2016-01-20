@@ -21,20 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.api;
+package com.tribalyte.springsocial.fiwarelab.api.connect;
 
+import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
+import org.springframework.social.oauth2.OAuth2Template;
 
-/** 
- * Operations on the user's profile.
+import com.tribalyte.springsocial.fiwarelab.api.KeyRock;
+import com.tribalyte.springsocial.fiwarelab.api.impl.KeyRockTemplate;
+
+/**
+ * Implementation of Identity Manager GE / KeyRock service provider
  * 
  * @author rbarriuso
  */
-public interface UserOperations {
+public class KeyRockServiceProvider extends AbstractOAuth2ServiceProvider<KeyRock> {
 
-	/**
-	 * Retrieves the profile for the authenticated user.
-	 * @return the user's profile information.
-	 */
-	User getUserProfile();
+	public KeyRockServiceProvider(String appId, String appSecret) {
+		super(getOAuth2Template(appId, appSecret));
+	}
+	
+	private static OAuth2Template getOAuth2Template(String appId, String appSecret) {
+		OAuth2Template oAuth2Template = new OAuth2Template(appId, appSecret,
+				KeyRockTemplate.API_BASE_URL + "/oauth2/authorize",
+				KeyRockTemplate.API_BASE_URL + "/oauth2/token");
+		//False to send clientId and clientSecret in "Authentication" header rather than POST body when exchanging the code
+		oAuth2Template.setUseParametersForClientAuthentication(false);
+		return oAuth2Template;
+	}
 
+	public KeyRock getApi(String accessToken) {
+		return new KeyRockTemplate(accessToken);
+	}
 }

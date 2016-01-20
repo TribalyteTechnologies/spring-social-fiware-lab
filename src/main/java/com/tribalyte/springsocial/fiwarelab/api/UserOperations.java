@@ -21,22 +21,20 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.fiware.spring_social_keyrock.api;
+package com.tribalyte.springsocial.fiwarelab.api;
 
-import org.springframework.social.ApiBinding;
 
 /** 
- * Interface specifying the set of operations for interacting with the FIWARE Identity Manager GE (KeyRock).
- * Implemented by {@link KeyRockTemplate}.
+ * Operations on the user's profile.
  * 
  * @author rbarriuso
  */
-public interface KeyRock extends ApiBinding {
-	
+public interface UserOperations {
+
 	/**
-	 * API for performing operations on IdM-KeyRock user profiles.
-	 * @return {@link UserOperations}
+	 * Retrieves the profile for the authenticated user.
+	 * @return the user's profile information.
 	 */
-	UserOperations userOperations();
+	User getUserProfile();
 
 }
