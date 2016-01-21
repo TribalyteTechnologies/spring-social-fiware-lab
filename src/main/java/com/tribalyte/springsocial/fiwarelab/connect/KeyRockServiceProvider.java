@@ -21,52 +21,35 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.springsocial.fiwarelab.api.connect;
+package com.tribalyte.springsocial.fiwarelab.connect;
 
-import org.springframework.social.ApiException;
-import org.springframework.social.connect.ApiAdapter;
-import org.springframework.social.connect.ConnectionValues;
-import org.springframework.social.connect.UserProfile;
-import org.springframework.social.connect.UserProfileBuilder;
+import org.springframework.social.oauth2.AbstractOAuth2ServiceProvider;
+import org.springframework.social.oauth2.OAuth2Template;
 
 import com.tribalyte.springsocial.fiwarelab.api.KeyRock;
-import com.tribalyte.springsocial.fiwarelab.api.User;
+import com.tribalyte.springsocial.fiwarelab.api.impl.KeyRockTemplate;
 
 /**
- * KeyRock ApiAdapter implementation.
+ * Implementation of Identity Manager GE / KeyRock service provider
  * 
  * @author rbarriuso
  */
-public class KeyRockAdapter implements ApiAdapter<KeyRock> {
+public class KeyRockServiceProvider extends AbstractOAuth2ServiceProvider<KeyRock> {
 
-	@Override
-	public boolean test(KeyRock keyRock) {
-		boolean res = false;
-		try {
-			keyRock.userOperations().getUserProfile();
-			res = true;
-		} catch (ApiException e) {
-		}
-		return res;
+	public KeyRockServiceProvider(String appId, String appSecret) {
+		super(getOAuth2Template(appId, appSecret));
+	}
+	
+	private static OAuth2Template getOAuth2Template(String appId, String appSecret) {
+		OAuth2Template oAuth2Template = new OAuth2Template(appId, appSecret,
+				KeyRockTemplate.API_BASE_URL + "/oauth2/authorize",
+				KeyRockTemplate.API_BASE_URL + "/oauth2/token");
+		//False to send clientId and clientSecret in "Authentication" header rather than POST body when exchanging the code
+		oAuth2Template.setUseParametersForClientAuthentication(false);
+		return oAuth2Template;
 	}
 
-	@Override
-	public void setConnectionValues(KeyRock keyRock, ConnectionValues values) {
-		User profile = keyRock.userOperations().getUserProfile();
-		values.setProviderUserId(profile.getId());
-		values.setDisplayName(profile.getDisplayName());
-		//TODO: implement setImageUrl, setProfileUrl
+	public KeyRock getApi(String accessToken) {
+		return new KeyRockTemplate(accessToken);
 	}
-
-	@Override
-	public UserProfile fetchUserProfile(KeyRock keyRock) {
-		User profile = keyRock.userOperations().getUserProfile();
-		return new UserProfileBuilder().setName(profile.getDisplayName()).setEmail(profile.getEmail()).build();
-	}
-
-	@Override
-	public void updateStatus(KeyRock keyRock, String message) {
-		//Noop
-	}
-
 }

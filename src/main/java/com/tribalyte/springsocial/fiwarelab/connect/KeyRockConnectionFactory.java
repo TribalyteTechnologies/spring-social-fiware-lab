@@ -21,7 +21,7 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  * THE SOFTWARE. 
  */
-package com.tribalyte.springsocial.fiwarelab.api.connect;
+package com.tribalyte.springsocial.fiwarelab.connect;
 
 import org.springframework.social.connect.support.OAuth2ConnectionFactory;
 
