@@ -27,7 +27,7 @@ import org.springframework.social.ApiBinding;
 
 /** 
  * Interface specifying the set of operations for interacting with the FIWARE Identity Manager GE (KeyRock).
- * Implemented by {@link KeyRockTemplate}.
+ * Implemented by {@link com.tribalyte.springsocial.fiwarelab.api.impl.KeyRockTemplate}.
  * 
  * @author rbarriuso
  */
