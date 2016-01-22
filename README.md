@@ -1,6 +1,16 @@
 #spring-social-fiware-lab
 <a href="https://account.lab.fiware.org/" target="_blank">FIWARE Lab</a>'s Identity Manager (KeyRock) extension for <a href="http://projects.spring.io/spring-social/" target="_blank">Spring Social</a>
 
+##Installation via Maven
+Add the following dependency to your `pom.xml`:
+```
+<dependency>
+	<groupId>com.tribalyte</groupId>
+	<artifactId>spring-social-fiware-lab</artifactId>
+	<version>1.0</version>
+</dependency>
+```
+
 
 ##Usage example
 
@@ -25,10 +35,6 @@ Then provide a link to "/auth/fiwarelab", for example:
 ```
 <a href="/auth/fiwarelab">Login with FIWARE Lab's IdM-KeyRock</a>
 ```
-
-
-##TODO
-- Package this project as a Maven artifact.
 
 
 ##License
