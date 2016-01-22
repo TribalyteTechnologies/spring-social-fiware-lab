@@ -31,9 +31,9 @@ public class SocialConfiguration implements SocialConfigurer {
 
 ```
 
-Then provide a link to "/auth/fiwarelab", for example:
+Then provide a link to "auth/fiwarelab", for example:
 ```
-<a href="/auth/fiwarelab">Login with FIWARE Lab's IdM-KeyRock</a>
+<a href="auth/fiwarelab">Login with FIWARE Lab's IdM-KeyRock</a>
 ```
 
 
